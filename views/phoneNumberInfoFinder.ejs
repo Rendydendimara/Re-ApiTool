@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <title>Re-Api</title>
+</head>
+<body>
+  <!-- nav layout  -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+    <a class="navbar-brand" href="re-api/phonenumber">Re-API PhoneNumber Finder </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <!-- list-link nav -->
+            <a class="nav-item nav-link" href="/re-api/movie">Movie</a>
+            <a class="nav-item nav-link" href="/re-api/ip">Ip</a>
+            <a class="nav-item nav-link" href="/re-api/phonenumber">PhoneNumber</a>
+            <a class="nav-item nav-link" href="/re-api/email">Email</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- layout form pencarian number -->
+  <div class="container">
+    <!-- row form pencarian number -->
+    <div class="row mt-3 justify-content-center">
+      <div class="col-md-8">
+        <h1 class="text-center">Search PhoneNumber</h1>
+        <div class="input-group mb-3">
+            <input type="text" id="search-input" class="form-control" placeholder="082217971133" onkeypress="if(event.keyCode < 48 || event.keyCode > 57)event.returnValue = false;" required>
+            <div class="input-group-append">
+              <button class="btn btn-dark" type="button" id="search-button">Find</button>
+            </div>
+          </div>
+      </div>
+    </div>
+    <hr>
+    <!-- row hasil pencarian info phonenumber -->
+    <div class="row" id="phonenumber-info">
+      <div class="col-md-12 mb-5">
+        <table class="table table-hover" id="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Title</th>
+              <th scope="col">Info</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+          </tbody>
+        </table>
+        <hr class="bg-dark">
+      </div>
+    </div>
+  </div> 
+
+
+  <!-- layout copyright -->
+  <div>
+      <div class="footer bg-dark fixed-bottom text-white text-center">
+        <p>Developed by r3ndyDinar Copyright <i class="far fa-copyright"></i> 2019</p>
+      </div>
+  </div>
+  
+  <script type="text/javascript" src="assets/js/jquery-3.4.1.min.js"></script>  
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/phonenumber-script.js"></script> 
+  </body>
+</html>
+
+
+

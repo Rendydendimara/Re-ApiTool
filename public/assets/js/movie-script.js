@@ -1,3 +1,4 @@
+// movie finder script
 function searchMovie() {
 	// fungsi handle ketika melakukan request pencarian movie
 
@@ -5,7 +6,7 @@ function searchMovie() {
  	const movieSearch = $('#search-input').val();  
 	$.ajax({ 
 	 	type: 'POST', 
-	 	url: '/api/omdbapi-movie', 
+	 	url: '/api/movie', 
 		data: {type: 'search-movie', item: movieSearch},
 		// ketika sukses post item, ajax otomatis reload page
 	 	success: function(result){ 
@@ -32,7 +33,7 @@ function searchMovie() {
 				// data result invalid
 				$('#movie-list').html(`
 					<div class="col">
-						<h1 class="text-center">` + result.error + `</h1>
+						<h1 class="text-center"> Error </h1>
 					</div>
 				`);	
 			}
@@ -41,7 +42,7 @@ function searchMovie() {
 }
  
 
-$('#search-button').on('click', function() { searchMovie(); });
+$('#search-button').on('click', function() { searchMovie() });
 
 $('#search-input').on('keyup', function(key) { if(key.keyCode === 13) searchMovie(); });
 
@@ -51,7 +52,7 @@ $('#movie-list').on('click', '.see-detail', function() {
 	const movieId = $(this).data('id');
  	$.ajax({
   		type: 'POST', 
-	 	url: '/api/omdbapi-movie', 
+	 	url: '/api/movie', 
 		data: {type: 'search-movie-detail' ,item: movieId },
 		success: function(result) {
   			if(result.type === true) {
@@ -78,3 +79,5 @@ $('#movie-list').on('click', '.see-detail', function() {
 		}
 	});
 });
+
+alert('movie');

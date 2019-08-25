@@ -3,11 +3,19 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 8002;
+const morgan = require('morgan');
 
-app.use(bodyParser.urlencoded({extended: false}));
 app.set('view engine', 'ejs');
-app.use('/app/omdbapi', express.static(path.join(__dirname,'./public')));
-app.use('/app/omdbapi-movie-id', express.static(path.join(__dirname,'./public')));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(morgan('dev'));
+
+// static file midleware
+app.use('/re-api/movie', express.static(path.join(__dirname,'./public')));
+app.use('/re-api/ip', express.static(path.join(__dirname,'./public')))
+app.use('/re-api/email', express.static(path.join(__dirname,'./public')))
+app.use('/re-api/phonenumber', express.static(path.join(__dirname,'./public')))
+
+// app.use('/app/movie-id', express.static(path.join(__dirname,'./public')));
 
 app.use(require('./routes'));
 
