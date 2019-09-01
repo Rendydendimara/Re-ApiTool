@@ -13,3 +13,4 @@ Jenis PUBLIC API berdasarkan Otentikasi (Auth)
 
 
 	ipgeolocation-api-key = bdc8cbac46cd4f08b8b793449cc50e16
+  

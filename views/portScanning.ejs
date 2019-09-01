@@ -14,7 +14,7 @@
   <!-- nav layout  -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-    <a class="navbar-brand" href="/re-api/ip">Re-API Ip Finder</a>
+    <a class="navbar-brand" href="/re-api/ip">Re-API Port Scanning</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,32 +34,18 @@
     <!-- row form pencarian movie -->
     <div class="row mt-3 justify-content-center">
       <div class="col-md-8">
-        <h1 class="text-center">Search Ip Address</h1>
+        <h1 class="text-center">Scan Port</h1>
         <div class="input-group mb-3">
-            <input type="text" id="search-input" class="form-control" placeholder="114.125.85.73" required>
+            <input type="text" id="search-input" class="form-control" placeholder="Domain or Ip address" required>
             <div class="input-group-append">
-              <button class="btn btn-dark" type="button" id="search-button">Find</button>
+              <button class="btn btn-dark" type="button" id="search-button">Scan</button>
             </div>
           </div>
       </div>
     </div>
     <hr class="bg-dark">
     <!-- row hasil pencarian movie -->
-    <div class="row" id="ip-info">
-      <div class="col-md-12 mb-5">
-        <table class="table table-hover" id="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Title</th>
-              <th scope="col">Info</th>
-            </tr>
-          </thead>
-          <tbody id="tbody">
-          </tbody>
-        </table>
-        <hr class="bg-dark">
-      </div>
+    <div class="row" id="portscanning-info">
     </div>
   </div>
 
@@ -73,7 +59,7 @@
   <script type="text/javascript" src="assets/js/jquery-3.4.1.min.js"></script>  
   <script src="assets/js/popper.min.js"></script>
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/js/ip-script.js"></script>
+  <script src="assets/js/portScanning-script.js"></script>
   <script>
     $('#search-button').on('click', function(){
       console.log('p');

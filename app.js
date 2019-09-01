@@ -10,10 +10,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
 
 // static file midleware
+app.use('/re-api/', express.static(path.join(__dirname, './public')));
 app.use('/re-api/movie', express.static(path.join(__dirname,'./public')));
 app.use('/re-api/ip', express.static(path.join(__dirname,'./public')))
 app.use('/re-api/email', express.static(path.join(__dirname,'./public')))
 app.use('/re-api/phonenumber', express.static(path.join(__dirname,'./public')))
+app.use('/re-api/subdomain-finder', express.static(path.join(__dirname,'./public')))
+app.use('/re-api/dns-history-checker', express.static(path.join(__dirname,'./public')))
+app.use('/re-api/reverse-ip-lookup', express.static(path.join(__dirname,'./public')))
 
 // app.use('/app/movie-id', express.static(path.join(__dirname,'./public')));
 
