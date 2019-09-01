@@ -3,7 +3,7 @@ const apiController = require('../controller/api/controller');
 
 router.post('/movie', (req, res, next) => {
 	// post to omdbapi to get movies
-	apiController.getMoviesOmdbApi(req, res, next);
+	apiController.getMoviesOmbdApi(req, res, next);
 });
 
 router.post('/ip', (req, res, next) => {

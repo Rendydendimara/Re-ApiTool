@@ -1,6 +1,8 @@
 
 // fungsi untuk melakukan request ke server menggunakan ajax untuk mendapatkan info ip address
 function dnsHistoryChecker() {
+ 	const domain = $('#search-input').val();  
+
 	// menambahkan tabel pada hasil portscanning
 	 $('#dnshistorychecker-info').html(`
 	 	<div class="col-md-12 mb-5">
@@ -15,13 +17,13 @@ function dnsHistoryChecker() {
 	              <th scope="col">Last Seen</th>
 	            </tr>
 	          </thead>
-	          <tbody id="tbody">
-	          </tbody>
+	          <tbody id="tbody"></tbody>
 	        </table>
 	        <hr class="bg-dark">
 	    </div>
 	 `);	
- 	const domain = $('#search-input').val();  
+  	$('#hr').html(`<h1 class="mt-5">` + domain + `</h1>`);	
+
 	$.ajax({ 
 	 	type: 'POST', 
 	 	url: '/api/dnshistory-checker', 

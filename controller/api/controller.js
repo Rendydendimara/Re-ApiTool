@@ -251,7 +251,7 @@ async function getMoviesOmbdApi(req, res, next) {
 					// response from omdbapi invalid
 					res.status(200).json({
 						type: false,
-						error: resultSearchOmdbApiMovies.body.Error.code
+						error: resultSearchOmdbApiMovies.body.Error
 					});
 				}
 			} catch (err) {

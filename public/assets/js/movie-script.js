@@ -4,6 +4,8 @@ function searchMovie() {
 
 	$('#movie-list').html(''); // membersihkan daftar movie sebelumnya	
  	const movieSearch = $('#search-input').val();  
+
+    $('#hr').html(`<h1 class="mt-5">` + movieSearch + `</h1>`);	
 	$.ajax({ 
 	 	type: 'POST', 
 	 	url: '/api/movie', 
@@ -33,7 +35,7 @@ function searchMovie() {
 				// data result invalid
 				$('#movie-list').html(`
 					<div class="col">
-						<h1 class="text-center"> Error </h1>
+						<h1 class="text-center"> `+ result.error +` </h1>
 					</div>
 				`);	
 			}

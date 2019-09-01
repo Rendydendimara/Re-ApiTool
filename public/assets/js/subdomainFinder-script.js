@@ -2,6 +2,8 @@
 
 // fungsi untuk melakukan request ke server menggunakan ajax untuk mendapatkan info ip address
 function subdomainFinder() {
+ 	const domain = $('#search-input').val();  
+
 	// menambahkan tabel pada hasil portscanning
 	 $('#subdomainfinder-info').html(`
 	 	<div class="col-md-12 mb-5">
@@ -19,8 +21,10 @@ function subdomainFinder() {
 	        <hr class="bg-dark">
 	    </div>
 	 `);	
- 	const domain = $('#search-input').val();  
-	$.ajax({ 
+
+	$('#hr').html(`<h1 class="mt-5">` + domain + `</h1>`);	
+ 
+ 	$.ajax({ 
 	 	type: 'POST', 
 	 	url: '/api/subdomain-finder', 
 		data: {type: 'subdomain-finder-info', item: domain},

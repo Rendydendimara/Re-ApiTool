@@ -2,9 +2,27 @@
 
 // fungsi untuk melakukan request ke server menggunakan ajax untuk mendapatkan info ip address
 function findIp() {
-	// membersihkan info ip sebelumnya
-	 $('#tbody').html('');	
  	const ipFind = $('#search-input').val();  
+
+	$('#ip-info').html(`
+	    <div class="col-md-12 mb-5">
+	        <table class="table table-hover" id="table">
+	          <thead class="thead-dark">
+	            <tr>
+	              <th scope="col">No</th>
+	              <th scope="col">Title</th>
+	              <th scope="col">Info</th>
+	            </tr>
+	          </thead>
+	          <tbody id="tbody">
+	          </tbody>
+	        </table>
+	    <hr class="bg-dark">
+     	</div>
+	`);
+    
+    $('#hr').html(`<h1 class="mt-5">` + ipFind + `</h1>`);	
+ 
 	$.ajax({ 
 	 	type: 'POST', 
 	 	url: '/api/ip', 

@@ -2,14 +2,34 @@
 
 // fungsi untuk melakukan request ke server menggunakan ajax untuk mendapatkan info email
 function findEmail() {
-	const ipFind = $('#search-input').val();  
-	$.ajax({ 
+	const emailFind = $('#search-input').val();  
+
+	$('#email-info').html(`
+	      <div class="col-md-12 mb-5">
+	        <table class="table table-hover" id="table">
+	          <thead class="thead-dark">
+	            <tr>
+	              <th scope="col">No</th>
+	              <th scope="col">Title</th>
+	              <th scope="col">Info</th>
+	            </tr>
+	          </thead>
+	          <tbody id="tbody"></tbody>
+	        </table>
+	        <hr class="bg-dark">
+	      </div>
+	    </div>
+	`);
+   	$('#hr').html(`<h1 class="mt-5">` + emailFind + `</h1>`);	
+
+ 	$.ajax({ 
 	 	type: 'POST', 
 	 	url: '/api/email', 
-		data: {type: 'find-email-info', item: ipFind},
+		data: {type: 'find-email-info', item: emailFind},
 		// ketika sukses post item, ajax otomatis reload page
 	 	success: function(result){ 
 			if(result.type === true) {
+				console.log(result);
 				// data result valid
 				const emailData = result.data;
 				let resultEmailTitle = 0;

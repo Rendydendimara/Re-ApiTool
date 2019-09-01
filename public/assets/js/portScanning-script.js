@@ -2,6 +2,8 @@
 
 // fungsi untuk melakukan request ke server menggunakan ajax untuk mendapatkan info ip address
 function portScanning() {
+ 	const hostScan = $('#search-input').val();  
+
 	// menambahkan tabel pada hasil portscanning
 	 $('#portscanning-info').html(`
 	 	<div class="col-md-12 mb-5">
@@ -20,8 +22,10 @@ function portScanning() {
 	        </table>
 	        <hr class="bg-dark">
 	    </div>
-	 `);	
- 	const hostScan = $('#search-input').val();  
+	 `);
+	 
+	$('#hr').html(`<h1 class="mt-5">` + hostScan + `</h1>`);	
+ 	
 	$.ajax({ 
 	 	type: 'POST', 
 	 	url: '/api/port-scanning', 

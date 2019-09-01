@@ -2,10 +2,27 @@
 
 // fungsi untuk melakukan request ke server menggunakan ajax untuk mendapatkan info phonenumber
 function findPhoneNumber() {
-	$('#tbody').html(' ');
 	const phonenumberFind = $('#search-input').val();
- 	const ipFind = $('#search-input').val();  
+ 
+	$('#phonenumber-info').html(`
+      <div class="col-md-12 mb-5">
+        <table class="table table-hover" id="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Title</th>
+              <th scope="col">Info</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+          </tbody>
+        </table>
+        <hr class="bg-dark">
+      </div>
+	`);
+     $('#hr').html(`<h1 class="mt-5">` + phonenumberFind + `</h1>`);	
 
+ 
 	$.ajax({
 		type: 'POST',
 		url: '/api/phonenumber',

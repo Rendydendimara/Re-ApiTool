@@ -1,0 +1,38 @@
+/* ganti background jumbotron menjadi gambar */
+.jumbotron{
+ background-image: url(../img/jumbotron.jpg);   
+ background-repeat: no-repeat;
+ height: 770px;
+ background-size: cover; /* membuat gambar backgroud menjadi full cover layar*/
+ text-align: center;
+ margin-top: -120px; /*membuat backgroud jumbotron naik ke atas navbar, tapi masih tertutup oleh nav bar*/
+}
+
+/* ubah warna text untuk h1*/
+.jumbotron .display-4{
+    color: white; 
+    margin-top: 200px; /*Membuat tulisan jumbotron agar turun ke bawah*/
+} 
+
+/* ubah warna text untuk paragraf */
+.jumbotron p{
+    color: white;
+    font-size: 25px;
+}
+
+/* modifikasi tag hr */
+.jumbotron hr{
+    border: #F05F40;
+    width: 70px;
+    border-width: 3px;
+}
+
+/* modifikasi button */
+.jumbotron .btn{
+    background-color: #F05F40;
+    border: none;
+    border-radius: 25px;
+    padding-right: 25px;  
+    padding-left: 25px;
+    margin-top: 40px;
+}

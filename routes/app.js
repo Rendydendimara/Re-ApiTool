@@ -46,6 +46,20 @@ router.get('/reverse-ip-lookup', (req, res ,next) => {
 	appControler.getReverseIpLookup(req, res, next);
 });
 
+router.get('/contact', (req, res ,next) => {
+	// send reverseip-lookup view
+	appControler.getContactView(req, res, next);
+});
+
+router.get('/about', (req, res ,next) => {
+	// send reverseip-lookup view
+	appControler.getAboutView(req, res, next);
+});
+
+router.get('/feedback', (req, res ,next) => {
+	// send reverseip-lookup view
+	appControler.getFeebackView(req, res, next);
+});
 
 
 module.exports = router;

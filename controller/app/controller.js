@@ -36,6 +36,18 @@ async function getReverseIpLookup(req, res, next) {
 	res.render('reverseIpLookup');
 }
 
+async function getContactView(req, res, next) {
+	res.render('contact');
+}
+
+async function getAboutView(req, res, next) {
+	res.render('about');
+}
+
+async function getFeebackView(req, res, next) {
+	res.render('feedback');
+}
+
 module.exports = {
 	getReApiHomePage,
     getOmdbapiMovie,
@@ -45,5 +57,8 @@ module.exports = {
    	getPortScanningView,
    	getSubdomainFinder,
    	getDNSHistoryChecker,
-   	getReverseIpLookup
+   	getReverseIpLookup,
+   	getContactView,
+   	getAboutView,
+	getFeebackView
 };
