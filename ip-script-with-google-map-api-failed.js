@@ -112,8 +112,157 @@ function findIp() {
 		});
 	}
 }
+
+//  function initializeGMap(lat, lng) {
+//     myLatlng = new google.maps.LatLng(lat, lng);
+
+//     var myOptions = {
+//       zoom: 12,
+//       zoomControl: true,
+//       center: myLatlng,
+//       mapTypeId: google.maps.MapTypeId.ROADMAP
+//     };
+
+//     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+//     myMarker = new google.maps.Marker({
+//       position: myLatlng
+//     });
+//     myMarker.setMap(map);
+//   }
+
+
+// function callbackMeGoogleMap(lat, long, lok) {
+// 	let myLatlng = new google.maps(lat, long);
+
+// 	let myOptions = {
+// 		zoom: 9,
+// 		zoomControl: true.
+// 		center: myLatlng
+// 	};
+
+// 	map = new google.Maps(document.getElementById("mapCity"), myOptions);
+
+// 	myMarker = new google.maps.Marker({
+// 		position: myLatlng
+// 	});
+// 	myMarker.start()
+
+
+	// const latitude = $('#buttonClickMap').data('latitude');
+	// const longitude = $('#buttonClickMap').data('longitude');
+	// const namaLokasi = $('#buttonClickMap').data('lokasi');
+
+	// const lokasi = {lat: Number(latitude), lng: Number(longitude)};
+
+	// // membuat map
+	// const map = new google.maps.Map(document.getElementById("mapCity"), {
+	// 	center: lokasi,
+	// 	zoo: 9,
+	// 	mapTypeId: google.maps.	MapTypeId.ROADMAP
+	// });
+	// console.log(lokasi);
+	// console.log('pp');
+	// console.log(map);
+
+	// // membuat info window
+	// const infoWindow = new google.maps.InfoWindow({
+	// 	content: '<h3>'+namaLokasi+'</h3>',
+	// 	position: lokasi
+	// });
+	// // membuat marker
+	// const marker = new google.maps.Marker({
+	// 	position: lokasi,
+	// 	map: map,
+	// 	title: namaLokasi
+	// });
+
+	// marker.addListener('click', function() {
+	// 	infoWindow.open(map, marker);
+	// });
+	
+	// marker.addListener('hover', function() {
+	// 	infoWindow.open(map, marker);
+	// });
+
+//}
+
+
+$("#modalMapCity").on('show.bs.modal', 	function(){
+	// $("#modalMapCity").on('show.bs.modal', function () {
+		callbackMeGoogleMap();
+	// });
+ 	// $("#modalMapCity").on('show.bs.modal', function () {
+	// 		console.log('pp');
+	// 		// ambil dulu titik tengah nya
+	// 		const tengah = map.getCenter();
+	// 		// resize
+	// 		google.maps.event.trigger(map, "resize");
+
+	// 		// set ulang titik tengah
+	// 		map.setCenter(tengah);
+	// 		callbackMeGoogleMap();
+	// });
+});
+$('#buttonClickMap').data('latitude');
+	const latitude = $('#buttonClickMap').data('latitude');
+	const longitude = $('#buttonClickMap').data('longitude');
+	const namaLokasi = $('#buttonClickMap').data('lokasi');
+
+ 
+
  
 $('#search-button').on('click', function() { findIp() });
 $('#search-input').on('keyup', function(key) { if(key.keyCode === 13) findIp() });
 
-  
+  // Trigger map resize event after modal shown
+  $('#modalMapCity').on('shown.bs.modal', function() {
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(myLatlng);
+  });
+
+
+ 	$("#modalMapCity").on('show.bs.modal', function () {
+ 		let button = $(event.relatedTarget);
+ 		callbackMeGoogleMap(Number(latitude), Number(longitude), namaLokasi);
+	});
+
+// Code goes here
+
+$(document).ready(function() {
+  var map = null;
+  var myMarker;
+  var myLatlng;
+
+  function initializeGMap(lat, lng) {
+    myLatlng = new google.maps.LatLng(lat, lng);
+
+    var myOptions = {
+      zoom: 12,
+      zoomControl: true,
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+    myMarker = new google.maps.Marker({
+      position: myLatlng
+    });
+    myMarker.setMap(map);
+  }
+
+  // Re-init map before show modal
+  $('#myModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget);
+    initializeGMap(button.data('lat'), button.data('lng'));
+    $("#location-map").css("width", "100%");
+    $("#map_canvas").css("width", "100%");
+  });
+
+  // Trigger map resize event after modal shown
+  $('#myModal').on('shown.bs.modal', function() {
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(myLatlng);
+  });
+});

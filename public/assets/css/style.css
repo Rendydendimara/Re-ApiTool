@@ -2,7 +2,7 @@
 .jumbotron{
  background-image: url(../img/jumbotron.jpg);   
  background-repeat: no-repeat;
- height: 770px;
+ height: 827px;
  background-size: cover; /* membuat gambar backgroud menjadi full cover layar*/
  text-align: center;
  margin-top: -120px; /*membuat backgroud jumbotron naik ke atas navbar, tapi masih tertutup oleh nav bar*/

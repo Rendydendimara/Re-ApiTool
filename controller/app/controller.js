@@ -3,13 +3,11 @@ async function getOmdbapiMovie (req, res, next) {
 }
 
 async function getEmailInfoFinder (req, res, next) {
-	res.render('emailInfoFinder')
-
+	res.render('emailInfoFinder');
 }
 
 async function getIpInfoFinder (req, res, next) { 
 	res.render('ipInfoFinder');
-
 }
 
 async function getInfoFinderPhoneNumber (req, res, next) { 
@@ -48,6 +46,18 @@ async function getFeebackView(req, res, next) {
 	res.render('feedback');
 }
 
+async function getFacebookDownloader(req, res, next) {
+	res.render('facebookDownloader');
+}
+
+async function getInstagramDownloader(req, res, next) {
+	res.render('instagramDownloader');
+}
+
+async function getYoutubeDownloader(req, res, next) {
+	res.render('youtubeDownloader');
+}
+
 module.exports = {
 	getReApiHomePage,
     getOmdbapiMovie,
@@ -60,5 +70,8 @@ module.exports = {
    	getReverseIpLookup,
    	getContactView,
    	getAboutView,
-	getFeebackView
+	getFeebackView,
+	getFacebookDownloader,
+	getInstagramDownloader,
+	getYoutubeDownloader
 };

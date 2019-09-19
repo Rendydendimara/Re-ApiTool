@@ -61,5 +61,20 @@ router.get('/feedback', (req, res ,next) => {
 	appControler.getFeebackView(req, res, next);
 });
 
+router.get('/facebook-downloader', (req, res ,next) => {
+	// send facebook downloader view
+	appControler.getFacebookDownloader(req, res, next);
+});
+
+router.get('/instagram-downloader', (req, res ,next) => {
+	// send instagram downloader view
+	appControler.getInstagramDownloader(req, res, next);
+});
+
+router.get('/youtube-downloader', (req, res ,next) => {
+	// send youtube downloader view
+	appControler.getYoutubeDownloader(req, res, next);
+});
+
 
 module.exports = router;

@@ -41,4 +41,19 @@ router.post('/dnshistory-checker', (req, res, next) => {
 	apiController.dnsHistoryChecker(req, res, next);
 });
 
+router.post('/facebook-downloader', (req, res, next) => {
+	// post to https://tools.hack.co.id/dns/ to get dns history inform
+	apiController.facebookDownloader(req, res, next);
+});
+
+router.post('/instagram-downloader', (req, res, next) => {
+	// post to https://tools.hack.co.id/dns/ to get dns history inform
+	apiController.instagramDownloader(req, res, next);
+});
+
+router.post('/youtube-downloader', (req, res, next) => {
+	// post to https://tools.hack.co.id/dns/ to get dns history inform
+	apiController.youtubeDownloader(req, res, next);
+});
+
 module.exports = router;

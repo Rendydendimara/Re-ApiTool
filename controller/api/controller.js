@@ -1,8 +1,7 @@
 const request = require('request');
 const apikey = require('../../config/apikey');
 const cheerio = require('cheerio');
-
-
+ 
 // request url to web service api
 const omdbapiUrl = `http://www.omdbapi.com/?apikey=${apikey.OmdbApi}`;
 const ipGeolocationIoUrl =`https://api.ipgeolocation.io/ipgeo?apiKey=${apikey.IpGeolocationIo}`; 
@@ -12,14 +11,14 @@ const portScanningEthicalHackerIndonesiaUrl = 'https://tools.hack.co.id/portscan
 const subdomainFinderEthicalHackerIndonesiaUrl = 'https://tools.hack.co.id/subdomain/';
 const reverseIpLookupEthicalHackerIndonesiaUrl = 'https://tools.hack.co.id/reverseip/';
 const dnsHistoryCheckerEthicalHackerIndonesiaUrl = 'https://tools.hack.co.id/dns/';
-
-
-// variabel defined error type
+const facebookDownloaderLink = 'https://fbdownloader.net/download/';
+const instagramDownloaderLinkdownloadgramcom = 'https://downloadgram.com/process.php';
+// variabel defined error type 											
 const antideoSubsriptionNotSupportedOnFree = 'IP to geolocation lookup for domain or service name is not supported on free subscription.';
 
 
 const getRequestOMDBAPIBySeacrchMovieName = (movieSearch) => (new Promise((resolve, reject) => {
-	// fungsi untuk melakukan requst GET ke OMDBAPI untk mendapatkan daftar movie berdarkan nama movie
+	// fungsi untuk melakukan request GET ke OMDBAPI untk mendapatkan daftar movie berdarkan nama movie
  	request.get(`${omdbapiUrl}&s=${movieSearch}`, (err, httpResponse, body) => {
 		if(err) reject(err);
 		else resolve({httpResponse: httpResponse, body: JSON.parse(body)});
@@ -187,7 +186,6 @@ const filterReverseIpLookupEthicalHackerIndonesia = (bodyReverseIpLookup) => (ne
 const DnsHistoryCheckerEthicalHackerIndonesia = (domain) => (new Promise((resolve, reject) => {
 	// fungsi untuk melakukan request POST ke https://tools.hack.co.id/dns/ untuk melakukan pencarian dns history checker terhadap domain di tuju
 	request.post({url: dnsHistoryCheckerEthicalHackerIndonesiaUrl, form: {domain: domain}}, (err, httpResponse, body) => {
-		console.log(httpResponse);
 		if(err) reject(err); 
 		else resolve({httpResponse: httpResponse, body: body});
 	});
@@ -224,6 +222,63 @@ const filterDnsHistoryCheckerEthicalHackerIndonesia = (bodyDnsHistoryChecker) =>
 
 	if(j.length < 1) resolve({type: false, msg: 'Domain invalid'});
 	else resolve({type: true, msg: j});
+}));
+
+const facebookDownloaderFileFBDownloaderNet = (fileLink) => (new Promise((resolve, reject) => {
+	// fungsi untuk melakukan request ke fbdownloader.net dengan memberikna link download
+	request.get(`${facebookDownloaderLink}?url=${fileLink}`, (err, httpResponse, body) => {
+		if(err) reject(err); 
+		else resolve({httpResponse: httpResponse, body: body});
+	});
+}));
+
+const filterFacebookDownloaderFileFBDownloaderNet = (body) => (new Promise((resolve, reject) => {
+	const $ = cheerio.load(body);
+	let linkDownloadOptions = Array.from($('.download-options li a')).map((link) => $(link).attr('href'));
+	let itemDownloadOption = Array.from($('.download-options li')).map((options) => $(options).text().trim());
+	if(linkDownloadOptions.length === 0) {
+		// link download rusak
+		resolve({type: false, errMsg: 'link rusak/link invalid'})
+	} else {
+		// link download didapati
+		// kita hanya mengambil video yang HD Quality
+		linkDownloadOptions.shift();
+		itemDownloadOption.shift();
+		resolve({type: true, data: {title: itemDownloadOption, link: linkDownloadOptions}});
+	}
+}));
+
+const getCredentitalFromDownloadgramcom = () => (new Promise((resolve, reject) => {
+	request.get('https://downloadgram.com/', (err, httpResponse, body) => {
+		if(err) reject(err);
+		else {
+			const $ = cheerio.load(body);
+			let credenditals = Array.from($("form input")).map((credentital) => $(credentital).attr('value'));
+			resolve({build_id: credenditals[2], build_key: credenditals[3]});
+		}
+	})
+}));
+
+const instagramDownloaderFiledownloadgramcom = (credendital_build_Id, credentital_build_key, fileLink) => (new Promise((resolve, reject) => {
+	// fungsi untuk melakukan request POST ke instaview.me dengan memberika link yang akan di download
+	request.post({url: instagramDownloaderLinkdownloadgramcom, form: {url: fileLink, build_id: credendital_build_Id, build_key: credentital_build_key}}, (err, httpResponse, body) => {
+		if(err) reject(err);																	    
+		else resolve({httpResponse: httpResponse, body: body});
+	});
+}));
+
+const filterInstagramDownloaderFiledownloadgramcom = (body) => (new Promise( async (resolve, reject) => {
+	const $ = cheerio.load(body);
+	const linkDownloadFile = await Array.from($('.success a')).map((link) => $(link).attr('href'));
+	const typeFileDowload = await 	Array.from($('.success')).map((title) => $(title).text().trim());
+	console.log(body);
+	if(linkDownloadFile[0].length === 0) {
+		// link download file rusak
+		resolve({type: false, errMsg: 'link rusak/link invalid'});
+	} else {
+		// link download di dapati
+		resolve({type: true, data:{title: typeFileDowload[0], link: linkDownloadFile[0]}});
+	}
 }));
 
 async function getMoviesOmbdApi(req, res, next) {
@@ -586,6 +641,124 @@ async function dnsHistoryChecker(req, res, next) {
 	}	
 }
 
+async function facebookDownloader(req, res, next) {
+	const link = String(req.body.item);
+
+	// cek link download
+	if(!link) {
+		// link is empty
+		res.status(422).json({
+			type: false,
+			error: 'Link to download required'
+		});
+	} else {
+		// link required
+		try {
+			console.log(`Link Facebook Download -> ${link}`);
+			const resultFacebookDownloaderFile = await facebookDownloaderFileFBDownloaderNet(link);
+			const resultFilterFacebookDownloaderFileFBDownloaderNet = await filterFacebookDownloaderFileFBDownloaderNet(resultFacebookDownloaderFile.body);
+			if(resultFilterFacebookDownloaderFileFBDownloaderNet.type === true) {
+				// result valid/ok
+				res.status(200).json({
+					type: true,
+					data: { facebookDownloaderTitle: resultFilterFacebookDownloaderFileFBDownloaderNet.data.title[0], facebookDownloaderLink: resultFilterFacebookDownloaderFileFBDownloaderNet.data.link[0] }
+				});
+			} else {  
+				// result invalid/link rusak
+				res.status(200).json({
+					type: false,
+					error:  resultFilterFacebookDownloaderFileFBDownloaderNet.errMsg
+				});
+			}
+		} catch(err) {
+			// internal server error
+			console.log(err);
+			next(err);
+		}
+	}
+}
+
+
+async function instagramDownloader(req, res, next) {
+	const instagramLinkToDownload = String(req.body.item);
+
+	// cek link download
+	if(!instagramLinkToDownload) {
+		// link is empty
+		res.status(422).json({
+			type: false,
+			error: 'Link to download required'
+		});
+	} else {
+		// link required
+		try {
+ 			console.log(`Link Instagram Download -> ${instagramLinkToDownload}`);	
+
+			// pertama kita melakukan request ke https://downloadgram.com/ untuk mendapatkan credendital/token agar kita dapat melakukan request untuk mendownload di website tersebut.
+			const resutGetCredentitalFromDownloadgramcom = await getCredentitalFromDownloadgramcom();
+			const resultInstagramDownloaderFiledownloadgramcom = await instagramDownloaderFiledownloadgramcom(resutGetCredentitalFromDownloadgramcom.build_id, resutGetCredentitalFromDownloadgramcom.build_key, instagramLinkToDownload);
+			const resultFilterInstagramDownloaderFiledownloadgramcom =  await filterInstagramDownloaderFiledownloadgramcom(resultInstagramDownloaderFiledownloadgramcom.body);
+			if(resultFilterInstagramDownloaderFiledownloadgramcom.type === true) {
+				// result ok/valid
+				res.status(200).json({
+					type: true,
+					data: {instagramDownloaderTitle: resultFilterInstagramDownloaderFiledownloadgramcom.data.title, instagramDownloaderLink: resultFilterInstagramDownloaderFiledownloadgramcom.data.link}
+				});
+			} else {
+				// result invalid/link rusak
+				res.status(200).json({
+					type: false,
+					error: resultFilterInstagramDownloaderFiledownloadgramcom.errMsg
+				});
+			}
+		} catch(err) {
+			// internal server error
+			console.log(err);
+			next(err);
+		}
+	}
+}
+
+
+async function youtubeDownloader(req, res, next) {
+	const youtubeLinkToDownload = String(req.body.item);
+
+	// cek link download
+	if(!youtubeLinkToDownload) {
+		// link is empty
+		res.status(422).json({
+			type: false,
+			error: 'Link to download required'
+		});
+	} else {
+		// link required
+		try {
+			console.log(`Link Youtube Download -> ${youtubeLinkToDownload}`);	
+			const resultYoutubeDownloaderVideo = await youtubeDownloaderVideo(youtubeLinkToDownload);
+			const resultFilterYoutubeDownloaderVideoService = await FilterYoutubeDownloaderVideoService(resultYoutubeDownloaderVideo.body);
+			if(resultFilterYoutubeDownloaderVideoService.type === true) {
+				// result ok/valid
+				res.status(200).json({
+					type: true,
+					data: ''
+				});
+			} else {
+				// result invalid/link rusak
+				res.status(200).json({
+					type: false,
+					data: resultFilterYoutubeDownloaderVideoService.errMsg
+				});
+			}
+		} catch(err) {
+			// internal server error
+			console.log(err);
+			next(err);
+		}
+	}
+}
+ 
+ 
+
 
 module.exports = {
 	getMoviesOmbdApi,
@@ -595,6 +768,9 @@ module.exports = {
 	portScanning,
 	subdomainFinder,
 	reverseIpLookup,
-	dnsHistoryChecker
+	dnsHistoryChecker,
+	facebookDownloader,
+	instagramDownloader,
+	youtubeDownloader
 };
 
